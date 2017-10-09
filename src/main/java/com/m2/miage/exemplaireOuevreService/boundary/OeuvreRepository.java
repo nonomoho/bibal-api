@@ -2,7 +2,10 @@ package com.m2.miage.exemplaireOuevreService.boundary;
 
 import com.m2.miage.exemplaireOuevreService.entity.Oeuvre;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-
-interface OeuvreRepository extends JpaRepository<Oeuvre, String> {
+@CrossOrigin
+@RepositoryRestResource
+public interface OeuvreRepository extends JpaRepository<Oeuvre, String> {
 }

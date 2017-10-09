@@ -1,11 +1,13 @@
-package com.m2.miage.exemplaireOuevreService.entity;
+package com.m2.miage.empruntReservationService.entity;
 
+import com.m2.miage.exemplaireOuevreService.entity.Oeuvre;
+import com.m2.miage.usagerService.entity.Usager;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -13,15 +15,17 @@ import java.util.Set;
 @Getter
 @Setter
 @Indexed
-public class Oeuvre {
+public class Reservation {
     @Id
     @Column(length = 36)
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
-    private String titre;
-    private String auteur;
-    private int anneeSortie;
-    @OneToMany(mappedBy = "oeuvre")
-    private Set<Exemplaire> exemplaires;
+    private Date date_reservation;
+    @Enumerated
+    private EnumEtatOeuvre etat;
+    @OneToOne
+    private Usager usager;
+    @OneToOne
+    private Oeuvre oeuvre;
 }

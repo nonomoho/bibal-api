@@ -1,22 +1,25 @@
 package com.m2.miage.exemplaireOuevreService.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
+@Getter
+@Setter
 @Indexed
-
 public class Exemplaire {
     @Id
-    private String exemplaire_id;
+    @Column(length = 36)
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String id;
     @Enumerated
     private EnumExemplaire etat;
-    private String oeuvre_id;
+    @ManyToOne
+    private Oeuvre oeuvre;
 }

@@ -1,29 +1,27 @@
 package com.m2.miage;
 
-import com.m2.miage.searchservice.boundary.SearchService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.m2.miage.usagerService.entity.Usager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
-import javax.persistence.EntityManager;
 
-@EnableAutoConfiguration
 @SpringBootApplication
 public class BibalServciceApplication {
 
-	@Autowired
-	private EntityManager em;
+    public static void main(String[] args) {
+        SpringApplication.run(BibalServciceApplication.class, args);
+    }
 
-	@Bean
-	SearchService searchService() {
-		SearchService searchService = new SearchService(em);
-		searchService.initializeSearch();
-		return searchService;
-	}
-
-	public static void main(String[] args) {
-		SpringApplication.run(BibalServciceApplication.class, args);
-	}
+    @Configuration
+    public class RepositoryConfig extends RepositoryRestMvcConfiguration {
+        @Override
+        public RepositoryRestConfiguration config() {
+            config().exposeIdsFor(Usager.class);
+            return super.config();
+        }
+    }
 }
