@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BibalServciceApplication {
+public class BibalAPI {
 
   public static void main(String[] args) {
-    SpringApplication.run(BibalServciceApplication.class, args);
+    SpringApplication.run(BibalAPI.class, args);
   }
 }
