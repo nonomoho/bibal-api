@@ -8,4 +8,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 @RepositoryRestResource
 public interface ExemplaireRepository extends JpaRepository<Exemplaire, String> {
+
 }

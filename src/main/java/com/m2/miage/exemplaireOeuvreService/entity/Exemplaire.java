@@ -1,10 +1,17 @@
 package com.m2.miage.exemplaireOeuvreService.entity;
 
-import lombok.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.Indexed;
-
-import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -13,13 +20,14 @@ import javax.persistence.*;
 @Setter
 @Indexed
 public class Exemplaire {
-    @Id
-    @Column(length = 36)
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
-    @Enumerated
-    private EnumExemplaire etat;
-    @ManyToOne
-    private Oeuvre oeuvre;
+
+  @Id
+  @Column(length = 36)
+  @GeneratedValue(generator = "system-uuid")
+  @GenericGenerator(name = "system-uuid", strategy = "uuid")
+  private String id;
+  @Enumerated
+  private EnumExemplaire etat;
+  @ManyToOne
+  private Oeuvre oeuvre;
 }
