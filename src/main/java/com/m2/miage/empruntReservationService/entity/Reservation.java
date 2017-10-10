@@ -1,6 +1,6 @@
 package com.m2.miage.empruntReservationService.entity;
 
-import com.m2.miage.exemplaireOuevreService.entity.Oeuvre;
+import com.m2.miage.exemplaireOeuvreService.entity.Oeuvre;
 import com.m2.miage.usagerService.entity.Usager;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;

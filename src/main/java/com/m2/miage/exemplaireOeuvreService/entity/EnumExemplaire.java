@@ -1,4 +1,4 @@
-package com.m2.miage.exemplaireOuevreService.entity;
+package com.m2.miage.exemplaireOeuvreService.entity;
 
 public enum EnumExemplaire {
     bon,
