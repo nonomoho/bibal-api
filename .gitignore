@@ -19,7 +19,7 @@ blog/bin/
 **/.tern-project
 
 #IntelliJ files
-#.idea
+.idea
 **/*.iml
 **/.gradle
 
