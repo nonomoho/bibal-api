@@ -8,13 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Indexed
 public class Usager {
 
   @Id
