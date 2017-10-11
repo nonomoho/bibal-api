@@ -27,9 +27,9 @@ public class Reservation {
   @GeneratedValue(generator = "system-uuid")
   @GenericGenerator(name = "system-uuid", strategy = "uuid")
   private String id;
-  private Date date_reservation;
+  private Date dateReservation;
   @Enumerated
-  private EnumEtatOeuvre etat;
+  private EnumReservation etat;
   @OneToOne
   private Usager usager;
   @OneToOne

@@ -28,6 +28,7 @@ public class Emprunt {
   private String id;
   private Date dateEmprunt;
   private Date dateRetour;
+  private EnumEmprunt etat;
   @OneToOne
   private Usager usager;
   @OneToOne
