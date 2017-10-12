@@ -4,16 +4,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.m2.miage.exemplaireOeuvreService.entity.Oeuvre;
 import com.m2.miage.usagerService.entity.Usager;
 import java.util.Date;
-import javax.persistence.Column;
+import java.util.UUID;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @NoArgsConstructor
@@ -23,10 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Reservation {
 
   @Id
-  @Column(length = 36)
-  @GeneratedValue(generator = "system-uuid")
-  @GenericGenerator(name = "system-uuid", strategy = "uuid")
-  private String id;
+  private UUID id = UUID.randomUUID();
 
   @JsonFormat(pattern = "yyyy-MM-dd")
   private Date dateReservation;

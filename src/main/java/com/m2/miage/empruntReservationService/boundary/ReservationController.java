@@ -4,8 +4,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 import com.m2.miage.empruntReservationService.entity.EnumReservation;
 import com.m2.miage.empruntReservationService.entity.Reservation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @CrossOrigin
 @RepositoryRestController
+@Slf4j
 public class ReservationController {
 
-  private final Logger logger = LoggerFactory.getLogger(getClass());
   private final ReservationRepository rr;
 
   @Autowired
@@ -29,6 +28,7 @@ public class ReservationController {
   public ResponseEntity<?> save(@RequestBody Reservation reservation) {
     reservation.setEtat(EnumReservation.EN_COURS);
     Reservation saved = rr.save(reservation);
+    log.info("Saved reservation");
     return ResponseEntity.created(linkTo(getClass()).slash(saved.getId()).toUri()).build();
   }
 }
