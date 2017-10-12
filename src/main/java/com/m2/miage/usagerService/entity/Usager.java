@@ -1,13 +1,11 @@
 package com.m2.miage.usagerService.entity;
 
-import javax.persistence.Column;
+import java.util.UUID;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @AllArgsConstructor
@@ -16,12 +14,6 @@ import org.hibernate.annotations.GenericGenerator;
 public class Usager {
 
   @Id
-  @Column(length = 36)
-  @GeneratedValue(generator = "system-uuid")
-  @GenericGenerator(name = "system-uuid", strategy = "uuid")
-  private String id;
-  private String nom;
-  private String prenom;
-  private String adresse;
-  private String telephone;
+  private UUID id = UUID.randomUUID();
+  private String nom, prenon, adresse, telephone;
 }
