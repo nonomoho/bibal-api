@@ -3,12 +3,14 @@ package com.m2.miage.exemplaireOeuvreService.entity;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @NoArgsConstructor
@@ -18,7 +20,9 @@ import lombok.Setter;
 public class Oeuvre {
 
   @Id
-  private UUID id = UUID.randomUUID();
+  @GeneratedValue(generator = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "uuid2")
+  private String id;
 
   private String titre;
   private String auteur;
