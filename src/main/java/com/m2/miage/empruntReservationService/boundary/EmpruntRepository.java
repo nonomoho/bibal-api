@@ -1,8 +1,13 @@
 package com.m2.miage.empruntReservationService.boundary;
 
 import com.m2.miage.empruntReservationService.entity.Emprunt;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.m2.miage.empruntReservationService.entity.projections.EmpruntProjection;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-public interface EmpruntRepository extends JpaRepository<Emprunt, String> {
+@CrossOrigin
+@RepositoryRestResource(excerptProjection = EmpruntProjection.class)
+public interface EmpruntRepository extends CrudRepository<Emprunt, String> {
 
 }

@@ -1,5 +1,6 @@
 package com.m2.miage.empruntReservationService.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.m2.miage.exemplaireOeuvreService.entity.Oeuvre;
 import com.m2.miage.usagerService.entity.Usager;
 import java.util.Date;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -20,6 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Reservation {
 
   @Id
@@ -27,7 +30,10 @@ public class Reservation {
   @GeneratedValue(generator = "system-uuid")
   @GenericGenerator(name = "system-uuid", strategy = "uuid")
   private String id;
+
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private Date dateReservation;
+
   @Enumerated
   private EnumReservation etat;
   @OneToOne
