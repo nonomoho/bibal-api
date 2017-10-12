@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -22,7 +21,6 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Reservation {
 
   @Id

@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 @NoArgsConstructor
@@ -18,7 +17,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 @Entity
-@ToString
 public class Exemplaire {
 
   @Id
