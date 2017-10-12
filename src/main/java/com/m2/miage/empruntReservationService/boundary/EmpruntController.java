@@ -1,5 +1,7 @@
 package com.m2.miage.empruntReservationService.boundary;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.m2.miage.empruntReservationService.entity.Emprunt;
 import com.m2.miage.empruntReservationService.entity.EnumEmprunt;
@@ -15,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,16 +42,20 @@ public class EmpruntController {
   @PostMapping(value = "/emprunts")
   public ResponseEntity<?> save(@RequestBody ObjectNode body) {
     List<Exemplaire> exemplairesDispos = exr.findAvailable(body.get("oeuvreId").asText());
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDate dateEmprunt = LocalDate.parse(body.get("dateEmprunt").asText(), formatter);
-    Usager user = ur.findOne(body.get("usagerId").asText());
-    Emprunt emprunt = new Emprunt(
-        Date.valueOf(dateEmprunt),
-        EnumEmprunt.EN_COURS,
-        user,
-        exemplairesDispos.get(0)
-    );
-    empr.save(emprunt);
-    return new ResponseEntity<>(HttpStatus.CREATED);
+
+    if (exemplairesDispos.size() > 0) {
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      LocalDate dateEmprunt = LocalDate.parse(body.get("dateEmprunt").asText(), formatter);
+      Usager user = new Usager();
+      user.setId(body.get("usagerId").asText());
+      Emprunt emprunt = new Emprunt();
+      emprunt.setDateEmprunt(Date.valueOf(dateEmprunt));
+      emprunt.setEtat(EnumEmprunt.EN_COURS);
+      emprunt.setUsager(user);
+      emprunt.setExemplaire(exemplairesDispos.get(0));
+      Emprunt saved = empr.save(emprunt);
+      return ResponseEntity.created(linkTo(getClass()).slash(saved.getId()).toUri()).build();
+    }
+    return ResponseEntity.unprocessableEntity().body("Plus d'exemplaires dispos");
   }
 }

@@ -24,14 +24,6 @@ import org.hibernate.annotations.GenericGenerator;
 @ToString
 public class Emprunt {
 
-  public Emprunt(Date dateEmprunt, EnumEmprunt etat, Usager usager,
-      Exemplaire exemplaire) {
-    this.dateEmprunt = dateEmprunt;
-    this.etat = etat;
-    this.usager = usager;
-    this.exemplaire = exemplaire;
-  }
-
   @Id
   @Column(length = 36)
 

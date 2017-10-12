@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.m2.miage.empruntReservationService.entity.Emprunt;
 import com.m2.miage.empruntReservationService.entity.EnumEmprunt;
 import com.m2.miage.exemplaireOeuvreService.entity.Exemplaire;
+import com.m2.miage.exemplaireOeuvreService.entity.Oeuvre;
 import com.m2.miage.usagerService.entity.Usager;
 import java.util.Date;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 @Projection(name = "emprunt", types = {Emprunt.class})
@@ -24,4 +26,7 @@ public interface EmpruntProjection {
   Usager getUsager();
 
   Exemplaire getExemplaire();
+
+  @Value("#{target.exemplaire.oeuvre}")
+  Oeuvre getOeuvre();
 }
