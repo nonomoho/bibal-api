@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin
 @RepositoryRestResource(excerptProjection = UsagerProjection.class)
-interface UsagerRepository extends CrudRepository<Usager, String> {
+public interface UsagerRepository extends CrudRepository<Usager, String> {
 
 }

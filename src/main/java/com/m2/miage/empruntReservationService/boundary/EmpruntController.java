@@ -5,10 +5,10 @@ import com.m2.miage.empruntReservationService.entity.Emprunt;
 import com.m2.miage.empruntReservationService.entity.EnumEmprunt;
 import com.m2.miage.exemplaireOeuvreService.boundary.ExemplaireRepository;
 import com.m2.miage.exemplaireOeuvreService.entity.Exemplaire;
+import com.m2.miage.usagerService.boundary.UsagerRepository;
 import com.m2.miage.usagerService.entity.Usager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +25,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class EmpruntController {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
-  private final EmpruntRepository store;
+  private final EmpruntRepository empr;
   private final ExemplaireRepository exr;
+  private final UsagerRepository ur;
 
   @Autowired
-  public EmpruntController(EmpruntRepository store,
-      ExemplaireRepository exr) {
-    this.store = store;
+  public EmpruntController(EmpruntRepository empr,
+      ExemplaireRepository exr, UsagerRepository ur) {
+    this.empr = empr;
     this.exr = exr;
+    this.ur = ur;
   }
 
   @PostMapping(value = "/emprunts")
@@ -40,12 +42,14 @@ public class EmpruntController {
     List<Exemplaire> exemplairesDispos = exr.findAvailable(body.get("oeuvreId").asText());
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate dateEmprunt = LocalDate.parse(body.get("dateEmprunt").asText());
+    Usager user = ur.findOne(body.get("usagerId").asText());
     Emprunt emprunt = new Emprunt(
         dateEmprunt,
         EnumEmprunt.EN_COURS,
-        
-        );
-//    store.save(emprunt);
+        user,
+        exemplairesDispos.get(0)
+    );
+    empr.save(emprunt);
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 }
