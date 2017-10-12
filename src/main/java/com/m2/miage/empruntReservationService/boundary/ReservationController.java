@@ -1,11 +1,13 @@
 package com.m2.miage.empruntReservationService.boundary;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
+import com.m2.miage.empruntReservationService.entity.EnumReservation;
+import com.m2.miage.empruntReservationService.entity.Reservation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,18 +18,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ReservationController {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
-  private final ReservationRepository store;
+  private final ReservationRepository rr;
 
   @Autowired
-  public ReservationController(ReservationRepository store) {
-    this.store = store;
+  public ReservationController(ReservationRepository rr) {
+    this.rr = rr;
   }
 
-  @PostMapping(value = "/reservations", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> save(@RequestBody Object reservation) {
-    logger.info("POST", reservation);
-    logger.info(String.valueOf(reservation));
-    System.out.println("salut" + reservation);
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+  @PostMapping(value = "/reservations")
+  public ResponseEntity<?> save(@RequestBody Reservation reservation) {
+    reservation.setEtat(EnumReservation.EN_COURS);
+    Reservation saved = rr.save(reservation);
+    return ResponseEntity.created(linkTo(getClass()).slash(saved.getId()).toUri()).build();
   }
 }

@@ -6,7 +6,6 @@ import com.m2.miage.usagerService.entity.Usager;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -32,8 +31,8 @@ public class Reservation {
   @JsonFormat(pattern = "yyyy-MM-dd")
   private Date dateReservation;
 
-  @Enumerated
   private EnumReservation etat;
+
   @OneToOne
   private Usager usager;
   @OneToOne

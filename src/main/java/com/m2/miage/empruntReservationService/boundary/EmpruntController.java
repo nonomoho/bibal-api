@@ -56,6 +56,8 @@ public class EmpruntController {
       Emprunt saved = empr.save(emprunt);
       return ResponseEntity.created(linkTo(getClass()).slash(saved.getId()).toUri()).build();
     }
+
+    logger.info("No available exemplaires found");
     return ResponseEntity.unprocessableEntity().body("Plus d'exemplaires dispos");
   }
 }
