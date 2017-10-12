@@ -7,6 +7,7 @@ import com.m2.miage.exemplaireOeuvreService.boundary.ExemplaireRepository;
 import com.m2.miage.exemplaireOeuvreService.entity.Exemplaire;
 import com.m2.miage.usagerService.boundary.UsagerRepository;
 import com.m2.miage.usagerService.entity.Usager;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -41,10 +42,10 @@ public class EmpruntController {
   public ResponseEntity<?> save(@RequestBody ObjectNode body) {
     List<Exemplaire> exemplairesDispos = exr.findAvailable(body.get("oeuvreId").asText());
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDate dateEmprunt = LocalDate.parse(body.get("dateEmprunt").asText());
+    LocalDate dateEmprunt = LocalDate.parse(body.get("dateEmprunt").asText(), formatter);
     Usager user = ur.findOne(body.get("usagerId").asText());
     Emprunt emprunt = new Emprunt(
-        dateEmprunt,
+        Date.valueOf(dateEmprunt),
         EnumEmprunt.EN_COURS,
         user,
         exemplairesDispos.get(0)
