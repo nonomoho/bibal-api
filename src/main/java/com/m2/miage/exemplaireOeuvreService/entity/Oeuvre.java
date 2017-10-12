@@ -1,7 +1,6 @@
 package com.m2.miage.exemplaireOeuvreService.entity;
 
 import java.util.Set;
-import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

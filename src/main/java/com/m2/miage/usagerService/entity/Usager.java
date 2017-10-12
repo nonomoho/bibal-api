@@ -1,6 +1,5 @@
 package com.m2.miage.usagerService.entity;
 
-import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,5 +19,5 @@ public class Usager {
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
   private String id;
 
-  private String nom, prenon, adresse, telephone;
+  private String nom, prenom, adresse, telephone;
 }
